@@ -22,7 +22,7 @@ export function Map() {
       />
 
       <ImageOverlay
-        url="/demo.png"
+        url="/glottobit/demo.png"
         bounds={[
           [-90, -180],
           [90, 180],
