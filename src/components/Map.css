@@ -1,0 +1,4 @@
+.leaflet-overlay-pane {
+    mix-blend-mode: multiply;
+    image-rendering: pixelated;
+}
