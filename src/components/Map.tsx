@@ -1,7 +1,8 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
+  GeoJSON,
   ImageOverlay,
   MapContainer,
   TileLayer,
@@ -55,10 +56,38 @@ function getInitialView() {
   return { x, y, z };
 }
 
+const handleClickFeature = (feature, layer) => {
+  if (feature.properties) {
+    const content = `
+      <div>
+        <strong>${feature.properties.name}</strong><br/>
+        ${feature.properties.description || ""}
+      </div>
+    `;
+
+    layer.bindPopup(content);
+
+    layer.on({
+      click: () => {
+        layer.openPopup();
+      },
+    });
+  }
+};
+
 export function Map() {
   const initial = getInitialView();
   const [cursorLat, setCursorLat] = useState(0);
   const [cursorLng, setCursorLng] = useState(0);
+  const [geojson, setGeojson] = useState();
+  // console.log(geojson);
+
+  useEffect(() => {
+    fetch("/glottobit/languages.geojson")
+      .then((res) => res.json())
+      .then((json) => setGeojson(json))
+      .catch((err) => console.error("Failed to load GeoJSON:", err));
+  }, []);
 
   function updateCursor(lat: number, lng: number) {
     setCursorLat(lat);
@@ -84,6 +113,23 @@ export function Map() {
         url="https://tile.gbif.org/4326/omt/{z}/{x}/{y}@1x.png"
         attribution="© GBIF / OpenMapTiles"
       />
+
+      {geojson && (
+        <GeoJSON
+          data={geojson}
+          pointToLayer={(_, latlng) => {
+            return L.circleMarker(latlng, {
+              radius: 5,
+              fillColor: "#777",
+              color: "#000",
+              weight: 1,
+              opacity: 0.5,
+              fillOpacity: 0.2,
+            });
+          }}
+          onEachFeature={handleClickFeature}
+        />
+      )}
 
       <ImageOverlay
         url="/glottobit/demo.png"
