@@ -56,7 +56,7 @@ function getInitialView() {
   return { x, y, z };
 }
 
-const handleClickFeature = (feature, layer) => {
+const handleClickFeature = (feature: any, layer: any) => {
   if (feature.properties) {
     const content = `
       <div>
