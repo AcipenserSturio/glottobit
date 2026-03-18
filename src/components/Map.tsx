@@ -1,12 +1,13 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ImageOverlay,
   MapContainer,
   TileLayer,
   useMapEvents,
 } from "react-leaflet";
+import { Geojson } from "./Geojson";
 import "./Map.css";
 
 function CursorTracker({
@@ -59,15 +60,7 @@ export function Map() {
   const initial = getInitialView();
   const [cursorLat, setCursorLat] = useState(0);
   const [cursorLng, setCursorLng] = useState(0);
-  const [geojson, setGeojson] = useState();
   // console.log(geojson);
-
-  useEffect(() => {
-    fetch("/glottobit/languages.geojson")
-      .then((res) => res.json())
-      .then((json) => setGeojson(json))
-      .catch((err) => console.error("Failed to load GeoJSON:", err));
-  }, []);
 
   function updateCursor(lat: number, lng: number) {
     setCursorLat(lat);
