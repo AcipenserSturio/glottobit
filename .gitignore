@@ -1,3 +1,6 @@
+# Geodata
+/public/geoboundaries
+
 # Logs
 logs
 *.log

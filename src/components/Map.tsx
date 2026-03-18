@@ -1,7 +1,7 @@
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
-import { ImageOverlay, MapContainer, TileLayer } from "react-leaflet";
-import { Geojson } from "./Geojson";
+import { MapContainer, TileLayer } from "react-leaflet";
+import { BitmapOverlay } from "./BitmapOverlay";
 import { HoverUI } from "./HoverUI";
 import "./Map.css";
 import { getInitialView, ViewHandler } from "./ViewHandler";
@@ -27,18 +27,11 @@ export function Map() {
         attribution="© GBIF / OpenMapTiles"
       />
 
-      <Geojson path="/glottobit/languages.geojson"></Geojson>
-      {/*<Geojson path="/glottobit/geoBoundaries-BLR-ADM2_simplified.geojson"></Geojson>*/}
-      {/*<Geojson path="/glottobit/geoBoundaries-BLR-ADM2_simplified.geojson"></Geojson>*/}
+      {/*<Geojson path="/glottobit/languages.geojson"></Geojson>*/}
+      {/*<Geojson path="/glottobit/geoboundaries/geoBoundaries-BLR-ADM2_simplified.geojson"></Geojson>*/}
+      {/*<Geojson path="/glottobit/geoboundaries/geoBoundaries-IND-ADM3_simplified.geojson"></Geojson>*/}
 
-      <ImageOverlay
-        url="/glottobit/demo.png"
-        bounds={[
-          [-90, -180],
-          [90, 180],
-        ]}
-        opacity={0.9}
-      />
+      <BitmapOverlay></BitmapOverlay>
     </MapContainer>
   );
 }
