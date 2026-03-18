@@ -2,7 +2,6 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { useEffect, useState } from "react";
 import {
-  GeoJSON,
   ImageOverlay,
   MapContainer,
   TileLayer,
@@ -56,25 +55,6 @@ function getInitialView() {
   return { x, y, z };
 }
 
-const handleClickFeature = (feature: any, layer: any) => {
-  if (feature.properties) {
-    const content = `
-      <div>
-        <strong>${feature.properties.name}</strong><br/>
-        ${feature.properties.description || ""}
-      </div>
-    `;
-
-    layer.bindPopup(content);
-
-    layer.on({
-      click: () => {
-        layer.openPopup();
-      },
-    });
-  }
-};
-
 export function Map() {
   const initial = getInitialView();
   const [cursorLat, setCursorLat] = useState(0);
@@ -114,22 +94,9 @@ export function Map() {
         attribution="© GBIF / OpenMapTiles"
       />
 
-      {geojson && (
-        <GeoJSON
-          data={geojson}
-          pointToLayer={(_, latlng) => {
-            return L.circleMarker(latlng, {
-              radius: 5,
-              fillColor: "#777",
-              color: "#000",
-              weight: 1,
-              opacity: 0.5,
-              fillOpacity: 0.2,
-            });
-          }}
-          onEachFeature={handleClickFeature}
-        />
-      )}
+      <Geojson path="/glottobit/languages.geojson"></Geojson>
+      {/*<Geojson path="/glottobit/geoBoundaries-BLR-ADM2_simplified.geojson"></Geojson>*/}
+      {/*<Geojson path="/glottobit/geoBoundaries-BLR-ADM2_simplified.geojson"></Geojson>*/}
 
       <ImageOverlay
         url="/glottobit/demo.png"
