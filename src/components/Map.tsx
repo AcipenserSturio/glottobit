@@ -2,6 +2,7 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import { MapContainer, TileLayer } from "react-leaflet";
 import { BitmapOverlay } from "./BitmapOverlay";
+import { Geojson } from "./Geojson";
 import { HoverUI } from "./HoverUI";
 import "./Map.css";
 import { getInitialView, ViewHandler } from "./ViewHandler";
@@ -27,9 +28,9 @@ export function Map() {
         attribution="© GBIF / OpenMapTiles"
       />
 
-      {/*<Geojson path="/glottobit/languages.geojson"></Geojson>*/}
+      <Geojson path="/glottobit/languages.geojson"></Geojson>
       {/*<Geojson path="/glottobit/geoboundaries/geoBoundaries-BLR-ADM2_simplified.geojson"></Geojson>*/}
-      {/*<Geojson path="/glottobit/geoboundaries/geoBoundaries-IND-ADM3_simplified.geojson"></Geojson>*/}
+      {/*<geojson path="/glottobit/geoboundaries/geoBoundaries-IND-ADM3_simplified.geojson"></Geojson>*/}
 
       <BitmapOverlay></BitmapOverlay>
     </MapContainer>
